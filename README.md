@@ -95,6 +95,7 @@ http://localhost:3000/api/v1/books
       "summary": "A brief summary of the book."
     },
     "status": "success",
+    "code": 201,
     "message": "Book created successfully",
     "headers": {
         "X-RateLimit-Limit": 100,
@@ -119,11 +120,13 @@ http://localhost:3000/api/v1/books
         "author": "Author Name",
         "genre": "Genre",
         "publication_date": "YYYY-MM-DD",
+        "availability": "available",
         "edition": "Edition",
         "summary": "A brief summary of the book."
       }
     ],
     "status": "success",
+    "code": 200,
     "message": "Books retrieved successfully",
     "headers": {
         "X-RateLimit-Limit": 100,
@@ -146,11 +149,13 @@ http://localhost:3000/api/v1/books
       "author": "Author Name",
       "genre": "Genre",
       "publication_date": "YYYY-MM-DD",
+      "availability": "available",
       "edition": "Edition",
       "summary": "A brief summary of the book."
     },
     
     "status": "success",
+    "code": 200,
     "message": "Book retrieved successfully",
     "headers": {
         "X-RateLimit-Limit": 100,
@@ -171,6 +176,7 @@ http://localhost:3000/api/v1/books
     "author": "Updated Author",
     "genre": "Updated Genre",
     "publication_date": "YYYY-MM-DD",
+    "availability": "available",
     "edition": "Updated Edition",
     "summary": "Updated summary."
   }
@@ -185,10 +191,12 @@ http://localhost:3000/api/v1/books
       "author": "Updated Author",
       "genre": "Updated Genre",
       "publication_date": "YYYY-MM-DD",
+      "availability": "available",
       "edition": "Updated Edition",
       "summary": "Updated summary."
     },
     "status": "success",
+    "code": 200,
     "message": "Book updated successfully",
     "headers": {
         "X-RateLimit-Limit": 100,
@@ -206,6 +214,7 @@ http://localhost:3000/api/v1/books
   ```json
   {
     "status": "success",
+    "code": 204,
     "message": "Book deleted successfully",
      "headers": {
         "X-RateLimit-Limit": 100,
