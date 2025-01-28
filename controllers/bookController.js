@@ -77,6 +77,7 @@ const createBook = (req, res) => {
 	return res.status(201).json({
 		book: newBook,
 		status: "success",
+        code: 201,
 		message: "Book created successfully",
 		headers: rateLimitHeaders,
 	});
@@ -100,6 +101,7 @@ const getAllBooks = (req, res) => {
 	return res.status(200).json({
 		books: books,
 		status: "success",
+        code: 200,
 		message: "Books retrieved successfully",
 		headers: rateLimitHeaders,
 	});
@@ -127,6 +129,7 @@ const getSingleBook = (req, res) => {
 	return res.status(200).json({
 		book: book,
 		status: "success",
+        code: 200,
 		message: "Book retrieved successfully",
 		headers: rateLimitHeaders,
 	});
@@ -173,6 +176,7 @@ const updateBook = (req, res) => {
 	return res.status(200).json({
 		data: book,
 		status: "success",
+        code: 200,
 		message: "Book updated successfully",
 		headers: rateLimitHeaders,
 	});
@@ -219,6 +223,7 @@ const deleteBook = (req, res) => {
 
 	return res.status(200).json({
 		status: "success",
+        code: 200,
 		message: "Book deleted successfully",
 		book: deletedBook,
 		headers: rateLimitHeaders,
