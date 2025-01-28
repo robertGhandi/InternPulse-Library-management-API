@@ -4,21 +4,41 @@ import getRateLimitHeaders from "../utils/rateLimitUtils.js";
 const books = [];
 
 const createBook = (req, res) => {
-	const { title, author, genre, publication_date, availability, edition, summary } =
-		req.body;
+	const {
+		title,
+		author,
+		genre,
+		publication_date,
+		availability,
+		edition,
+		summary,
+	} = req.body;
 
 	if (
 		!title ||
 		!author ||
 		!genre ||
 		!publication_date ||
-        !availability ||
+		!availability ||
 		!edition ||
 		!summary
 	) {
 		return res.status(400).json({
 			status: "error",
+			code: 400,
 			message: "Please fill all required fields",
+			errors: {
+				requiredFields: [
+					"title",
+					"author",
+					"genre",
+					"publication_date",
+					"availability",
+					"edition",
+					"summary",
+				],
+			},
+			timestamp: new Date().toISOString(),
 		});
 	}
 
@@ -29,8 +49,13 @@ const createBook = (req, res) => {
 	if (isDuplicate) {
 		return res.status(409).json({
 			status: "error",
-			message:
-				"A book with the same title by this author already exists.",
+			code: 409,
+			message: "Conflict: Duplicate book",
+			errors: {
+				details:
+					"A book with the title and author already exists in the library",
+			},
+			timestamp: new Date().toISOString(),
 		});
 	}
 
@@ -40,7 +65,7 @@ const createBook = (req, res) => {
 		author,
 		genre,
 		publication_date,
-        availability,
+		availability,
 		edition,
 		summary,
 	};
@@ -61,7 +86,12 @@ const getAllBooks = (req, res) => {
 	if (books.length === 0) {
 		return res.status(404).json({
 			status: "error",
+			code: 404,
 			message: "No books found",
+			errors: {
+				details: "The library has no books available.",
+			},
+			timestamp: new Date().toISOString(),
 		});
 	}
 
@@ -81,7 +111,14 @@ const getSingleBook = (req, res) => {
 	if (!book) {
 		return res.status(404).json({
 			status: "error",
+			code: 404,
 			message: "Book not found",
+			errors: {
+				bookId: req.params.bookId,
+				details:
+					"The book with the specified ID was not found in the library.",
+			},
+			timestamp: new Date().toISOString,
 		});
 	}
 
@@ -101,12 +138,26 @@ const updateBook = (req, res) => {
 	if (!book) {
 		return res.status(404).json({
 			status: "error",
+			code: 404,
 			message: "Book not found",
+			errors: {
+				bookId: req.params.bookId,
+				details:
+					"The book with the specified ID was not found in the library.",
+			},
+			timestamp: new Date().toISOString(),
 		});
 	}
 
-	const { title, author, genre, publication_date, availability, edition, summary } =
-		req.body;
+	const {
+		title,
+		author,
+		genre,
+		publication_date,
+		availability,
+		edition,
+		summary,
+	} = req.body;
 
 	// Update book details
 	book.title = title || book.title;
@@ -114,7 +165,7 @@ const updateBook = (req, res) => {
 	book.genre = genre || book.genre;
 	book.publication_date = publication_date || book.publication_date;
 	book.availability = availability || book.availability;
-    book.edition = edition || book.edition;
+	book.edition = edition || book.edition;
 	book.summary = summary || book.summary;
 
 	const rateLimitHeaders = getRateLimitHeaders(req);
@@ -133,25 +184,45 @@ const deleteBook = (req, res) => {
 	if (bookIndex === -1) {
 		return res.status(404).json({
 			status: "error",
+			code: 404,
 			message: "Book not found",
+			errors: {
+				bookId: req.params.bookId,
+				details:
+					"The book with the specified ID was not found in the library.",
+			},
+			timestamp: new Date().toISOString(),
 		});
 	}
 
-    const book = books[bookIndex];
+	const book = books[bookIndex];
 
-    if (book.availability === "not available" || book.availability === false) {
-        books.splice(bookIndex, 1);
-    }
+	if (book.availability === "available" || book.availability === true) {
+		return res.status(400).json({
+			status: "error",
+			code: 400,
+			message: "Cannot delete a book that is still available.",
+			errors: {
+				bookId: req.params.bookId,
+				availability: book.availability,
+				details:
+					"You can only delete books that are lost, damaged, or no longer available.",
+			},
+			timestamp: new Date().toISOString(),
+		});
+	}
 
 	// Remove the book from the array
-	books.splice(bookIndex, 1);
+	const deletedBook = books.splice(bookIndex, 1);
 
 	const rateLimitHeaders = getRateLimitHeaders(req);
 
 	return res.status(200).json({
 		status: "success",
 		message: "Book deleted successfully",
+		book: deletedBook,
 		headers: rateLimitHeaders,
+		timestamp: new Date().toISOString(),
 	});
 };
 
