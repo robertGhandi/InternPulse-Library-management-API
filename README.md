@@ -25,7 +25,7 @@ Before you begin, ensure you have the following installed on your system:
 1. Clone the repository:
 
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/robertGhandi/InternPulse-Library-management-API.git
    ```
 
 2. Navigate to the project directory:
@@ -97,9 +97,9 @@ http://localhost:3000/api/v1/books
     "status": "success",
     "message": "Book created successfully",
     "headers": {
-        "X-RateLimit-Limit": "",
-        "X-RateLimit-Remaining": "",
-        "X-RateLimit-Reset": ""
+        "X-RateLimit-Limit": 100,
+        "X-RateLimit-Remaining": 99,
+        "X-RateLimit-Reset": 1668144600
     }
   }
   ```
@@ -126,9 +126,9 @@ http://localhost:3000/api/v1/books
     "status": "success",
     "message": "Books retrieved successfully",
     "headers": {
-        "X-RateLimit-Limit": "",
-        "X-RateLimit-Remaining": "",
-        "X-RateLimit-Reset": ""
+        "X-RateLimit-Limit": 100,
+        "X-RateLimit-Remaining": 96,
+        "X-RateLimit-Reset": 1668144600
     }
   }
   ```
@@ -153,9 +153,9 @@ http://localhost:3000/api/v1/books
     "status": "success",
     "message": "Book retrieved successfully",
     "headers": {
-        "X-RateLimit-Limit": "",
-        "X-RateLimit-Remaining": "",
-        "X-RateLimit-Reset": ""
+        "X-RateLimit-Limit": 100,
+        "X-RateLimit-Remaining": 97,
+        "X-RateLimit-Reset": 1668144600
     }
   }
   ```
@@ -191,9 +191,9 @@ http://localhost:3000/api/v1/books
     "status": "success",
     "message": "Book updated successfully",
     "headers": {
-        "X-RateLimit-Limit": "",
-        "X-RateLimit-Remaining": "",
-        "X-RateLimit-Reset": ""
+        "X-RateLimit-Limit": 100,
+        "X-RateLimit-Remaining": 95,
+        "X-RateLimit-Reset": 1668144600
     }
   }
   ```
@@ -206,7 +206,12 @@ http://localhost:3000/api/v1/books
   ```json
   {
     "status": "success",
-    "message": "Book deleted successfully"
+    "message": "Book deleted successfully",
+     "headers": {
+        "X-RateLimit-Limit": 100,
+        "X-RateLimit-Remaining": 94,
+        "X-RateLimit-Reset": 1668144600
+    }
   }
   ```
 
