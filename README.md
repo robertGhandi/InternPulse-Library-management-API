@@ -11,7 +11,7 @@ This is a simple RESTful API for managing a library system, built with Node.js a
 - Rate limiting to prevent abuse of the API.
 
 ## Postman Documentation
-- 
+- https://www.postman.com/robertghandi/my-workspace/collection/dr8bbyb/library-management-api?action=share&creator=32178925
 
 ## Prerequisites
 
